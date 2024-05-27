@@ -1,0 +1,17 @@
+export const elements = {
+  activeArea: document.querySelector('.active-area'),
+  currentTimeBar: document.querySelector('.current-time-bar'),
+  dropzone: document.getElementById('dropzone'),
+  dropzonePage: document.getElementById('dropzonePage'),
+  durationText: document.querySelector('.time-tag-text'),
+  editorPage: document.getElementById('editorPage'),
+  fileInput: document.getElementById('fileInput'),
+  leftHandle: document.querySelector('.left-handle'),
+  leftInactiveArea: document.querySelector('.inactive-area.left'),
+  rightHandle: document.querySelector('.right-handle'),
+  rightInactiveArea: document.querySelector('.inactive-area.right'),
+  thumbnailContainer: document.querySelector('.preview-thumbnails'),
+  videoPlayer: document.getElementById('videoPlayer'),
+  videoTrack: document.querySelector('.video-track'),
+  generateButton: document.querySelector('button'),
+  };

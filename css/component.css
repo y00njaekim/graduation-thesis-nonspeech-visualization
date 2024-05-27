@@ -1,0 +1,187 @@
+.dropzone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px dashed #999;
+  border-radius: 5px;
+  padding: 20px;
+  cursor: pointer;
+  margin-top: 20px;
+  height: 30rem;
+  transition: background-color 0.3s;
+}
+
+.dropzone p {
+  margin: 0;
+  padding: 0;
+  color: #999;
+}
+
+.dropzone input {
+  display: none;
+}
+
+
+.subtitle {
+  width: 100%;
+  position: absolute;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  bottom: 5rem;
+  padding: 0.5rem 0;
+}
+
+.subtitle .sound-word {
+  color: #fff;
+  font-size: 2rem;
+  margin: 0 0.5rem;
+}
+
+.subtitle .description {
+  color: #fff;
+  font-size: 1.5rem;
+  margin: 0 0.5rem
+}
+
+.video-box {
+  position: relative;
+  width: 100%;
+}
+
+.video-track-box {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 10px;
+  background: #626262;
+  /* round-corner */
+  border-radius: 5px;
+}
+
+button {
+  margin-right: 10px;
+}
+
+.video-track {
+  height: 100px;
+  position: relative;
+  background-color: #f0f0f0;
+}
+
+.preview-thumbnails {
+  width: 100%;
+  height: 100%;
+  background-color: #ddd;
+  display: flex;
+  overflow-x: hidden;
+}
+
+.preview-thumbnails img {
+  height: 100%;
+}
+
+.inactive-area {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.inactive-area.left {
+  left: 0;
+}
+
+.inactive-area.right {
+  right: 0;
+}
+
+.active-area {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.3);
+  z-index: 2;
+}
+
+.time-tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 5px;
+  height: 100%;
+  z-index: 3;
+}
+
+.time-tag .time-tag-text {
+  padding: 3px;
+  /* background-color: black with transparent */
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+
+.left-handle,
+.right-handle {
+  position: absolute;
+  top: 0;
+  width: 10px;
+  height: 100%;
+  background-color: blue;
+  cursor: ew-resize;
+  z-index: 3;
+}
+
+.left-handle {
+  left: -10px;
+  border-radius: 5px 0 0 5px;
+}
+
+.right-handle {
+  right: -10px;
+  border-radius: 0 5px 5px 0;
+}
+
+.current-time-bar {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background-color: red;
+  z-index: 4;
+}
+
+.right-pane .title {
+  display: flex;
+  font-size: 1.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.right-pane .title h3 {
+  text-align: center;
+  margin: 20px;
+}
+
+#styleList {
+  list-style-type: none;
+  padding: 0;
+}
+
+#styleList li {
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+.style-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 5px;
+  height: 30px;
+}

@@ -1,0 +1,25 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.pane {
+  display: flex;
+  width: 100%;
+}
+
+.left-pane {
+  flex-basis: 70%;
+  width: 70%;
+}
+
+.right-pane {
+  flex-basis: 30%;
+  padding: 10px;
+  margin-left: 20px;
+  border-radius: 5px;
+  background: rgb(243 244 246);
+  box-sizing: border-box;
+}
