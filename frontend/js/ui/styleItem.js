@@ -18,11 +18,13 @@ const styleItem = (() => {
     const subtitleNonspeech = document.createElement('div');
     subtitleNonspeech.classList.add('subtitle-nonspeech');
     subtitleNonspeech.textContent = item.sound_word;
+    subtitleNonspeech.contentEditable = true;
     subtitleInfo.appendChild(subtitleNonspeech);
 
     const subtitleDescription = document.createElement('div');
     subtitleDescription.classList.add('subtitle-description');
     subtitleDescription.textContent = item.description;
+    subtitleDescription.contentEditable = true;
     subtitleInfo.appendChild(subtitleDescription);
 
     const subtitleItem = document.createElement('div');
@@ -33,9 +35,11 @@ const styleItem = (() => {
     subtitleActions.classList.add('subtitle-actions');
 
     const editButton = createEditButton(index);
+    const saveButton = createSaveButton(index, subtitleNonspeech, subtitleDescription);
     const deleteButton = createDeleteButton(index);
-
+    
     subtitleActions.appendChild(editButton);
+    subtitleActions.appendChild(saveButton);
     subtitleActions.appendChild(deleteButton);
     subtitleItem.appendChild(subtitleActions);
 
@@ -109,6 +113,36 @@ const styleItem = (() => {
       isPopoverOpen = true;
     });
     return editButton;
+  }
+
+  function createSaveButton(index, subtitleNonspeech, subtitleDescription) {
+    const saveButton = document.createElement('button');
+    saveButton.classList.add('action-btn');
+    saveButton.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+        <polyline points="7 3 7 8 15 8"></polyline>
+      </svg>
+    `;
+    saveButton.addEventListener('click', () => {
+      const updatedItem = {
+        ...getData()[index],
+        sound_word: subtitleNonspeech.textContent,
+        description: subtitleDescription.textContent,
+      };
+      updateData(index, updatedItem);
+      const changeEvent = new CustomEvent('stylechange', {
+        detail: {
+          sound_word: updatedItem.sound_word,
+          description: updatedItem.description,
+        },
+        bubbles: true,
+      });
+      saveButton.dispatchEvent(changeEvent);
+      styleList.update();
+    });
+    return saveButton;
   }
 
   function createDeleteButton(index) {

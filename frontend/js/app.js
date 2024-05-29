@@ -21,7 +21,7 @@ function handleFileLoaded() {
     const endTime = getEndTime();
     // SMELL: Dependency 너무 크다.
     elements.generateButton.disabled = true;
-    elements.generateButton.textContent = 'Generating...';
+    elements.generateButton.textContent = 'Analyzing...';
     elements.generateButton.style.backgroundColor = 'gray';
     elements.generateButton.style.cursor = 'not-allowed';
     trimVideo(startTime, endTime, elements.videoPlayer)

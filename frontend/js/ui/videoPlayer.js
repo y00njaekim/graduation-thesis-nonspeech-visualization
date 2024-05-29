@@ -123,13 +123,33 @@ const videoPlayer = (() => {
   }
 
   function updateStyle(style) {
-    soundWordElement.style.webkitTextStroke = style.text_stroke;
-    soundWordElement.style.fontFamily = style.font_family;
-    soundWordElement.style.fontWeight = style.font_weight;
-    soundWordElement.style.fontSize = style.font_size;
-    soundWordElement.style.color = style.font_color;
-    soundWordElement.style.letterSpacing = style.letter_spacing;
-    soundWordElement.style.textShadow = style.text_shadow;
+    if (style.text_stroke) {
+      soundWordElement.style.webkitTextStroke = style.text_stroke;
+    }
+    if (style.font_family) {
+      soundWordElement.style.fontFamily = style.font_family;
+    }
+    if (style.font_weight) {
+      soundWordElement.style.fontWeight = style.font_weight;
+    }
+    if (style.font_size) {
+      soundWordElement.style.fontSize = style.font_size;
+    }
+    if (style.font_color) {
+      soundWordElement.style.color = style.font_color;
+    }
+    if (style.letter_spacing) {
+      soundWordElement.style.letterSpacing = style.letter_spacing;
+    }
+    if (style.text_shadow) {
+      soundWordElement.style.textShadow = style.text_shadow;
+    }
+    if (style.sound_word) {
+      soundWordElement.textContent = style.sound_word;
+    }
+    if (style.description) {
+      descriptionElement.textContent = `(${style.description})`;
+    }
   }
 
 
