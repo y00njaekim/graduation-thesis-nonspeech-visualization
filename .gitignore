@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+
+# JavaScript
+node_modules/
+dist/
+*.log
+*.pid
+*.pid.lock
+*.seed
+*.pid.seed
+*.seed.pid
+
+# CSS
+.sass-cache/
+*.css.map
+*.sass.map
+*.scss.map
+
+# HTML
+*.html.swp
+*.html~
