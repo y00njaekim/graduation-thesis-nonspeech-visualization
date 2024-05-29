@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "prefix-aac-icassp2023"
+version = "0.1.0"
+description = ""
+authors = ["y00njae <rladbswo12@gist.ac.kr>"]
+
+[tool.poetry.dependencies]
+python = "~3.10"
+torch = "^2.0.1"
+torchaudio = "^2.0.2"
+pandas = "^2.0.3"
+tqdm = "^4.65.0"
+transformers = "^4.31.0"
+terminaltables = "^3.1.10"
+matplotlib = "^3.7.2"
+scikit-image = "^0.21.0"
+importlib-resources = "^6.0.0"
+torchlibrosa = "^0.1.0"
+gdown = "^5.2.0"
+fastapi = "^0.111.0"
+filetype = "^1.2.0"
+openai = "^1.30.2"
+python-dotenv = "^1.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
