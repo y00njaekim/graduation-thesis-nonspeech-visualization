@@ -14,4 +14,8 @@ export const elements = {
   videoPlayer: document.getElementById('videoPlayer'),
   videoTrack: document.querySelector('.video-track'),
   generateButton: document.querySelector('button'),
+  subtitle: document.querySelector('.subtitle'),
+  soundWord: document.querySelector('.sound-word'),
+  description: document.querySelector('.description'),
+  styleList: document.getElementById('styleList'),
   };

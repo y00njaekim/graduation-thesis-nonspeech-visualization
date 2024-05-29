@@ -11,11 +11,13 @@ export default async function trimVideo(startTime, endTime, videoElement) {
     return;
   }
 
-  const trimmedVideo = videoElement.cloneNode();
-  trimmedVideo.src = videoElement.src;
-  trimmedVideo.currentTime = startTime;
+  // const trimmedVideo = videoElement.cloneNode();
+  // trimmedVideo.src = videoElement.src;
+  // trimmedVideo.currentTime = startTime;
+  videoElement.pause();
+  videoElement.currentTime = startTime;
 
-  const recorder = new MediaRecorder(trimmedVideo.captureStream());
+  const recorder = new MediaRecorder(videoElement.captureStream());
   const chunks = [];
 
   recorder.ondataavailable = (event) => {
@@ -40,6 +42,7 @@ export default async function trimVideo(startTime, endTime, videoElement) {
         }
 
         const data = await response.json();
+        console.log('Transcription:', data)
         resolve(data);
       } catch (error) {
         console.error('Error during transcription:', error);
@@ -47,20 +50,30 @@ export default async function trimVideo(startTime, endTime, videoElement) {
       }
     };
 
-    trimmedVideo.addEventListener(
-      'loadedmetadata',
+    // videoElement.addEventListener(
+    //   'loadedmetadata',
+    //   () => {
+    //     videoElement.play();
+    //     recorder.start();
+    //     setTimeout(
+    //       () => {
+    //         videoElement.pause();
+    //         recorder.stop();
+    //       },
+    //       (endTime - startTime) * 1000,
+    //     );
+    //   },
+    //   { once: true },
+    // );
+
+    videoElement.play();
+    recorder.start();
+    setTimeout(
       () => {
-        trimmedVideo.play();
-        recorder.start();
-        setTimeout(
-          () => {
-            trimmedVideo.pause();
-            recorder.stop();
-          },
-          (endTime - startTime) * 1000,
-        );
+        recorder.stop();
+        videoElement.pause();
       },
-      { once: true },
+      (endTime - startTime) * 1000,
     );
   });
 }

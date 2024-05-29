@@ -16,3 +16,21 @@ export function getEndTime() {
 export function setEndTime(time) {
   endTime = time;
 }
+
+let data = [];
+
+export function getData() {
+  return data;
+}
+
+export function appendData(newData) {
+  data = [...data, ...newData];
+  data.sort((a, b) => a.start_time - b.start_time);
+}
+
+export function removeData(index) {
+  data.splice(index, 1);
+}
+export function updateData(index, updatedItem) {
+  data[index] = { ...data[index], ...updatedItem };
+}

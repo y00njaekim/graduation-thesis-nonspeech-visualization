@@ -1,27 +1,47 @@
 import { elements } from '../elements.js';
-import { setStartTime, setEndTime, getStartTime, getEndTime } from '../store.js';
+import { setStartTime, setEndTime, getStartTime, getEndTime, getData } from '../store.js';
 
 const videoPlayer = (() => {
   let startTime;
   let endTime;
+  let currentSubtitle;
+  let subtitleInterval;
   let durationTextElement;
   let videoPlayerElement;
   let thumbnailContainerElement;
   let timelineElement;
   let currentTimeBarElement;
-
+  let subtitleElement;
+  let soundWordElement;
+  let descriptionElement;
+  
+  
   function init() {
+    currentSubtitle = null;
+    subtitleInterval = null;
     durationTextElement = elements.durationText;
     videoPlayerElement = elements.videoPlayer;
     timelineElement = elements.videoTrack;
     currentTimeBarElement = elements.currentTimeBar;
     thumbnailContainerElement = elements.thumbnailContainer;
+    subtitleElement = elements.subtitle;
+    soundWordElement = elements.soundWord;
+    descriptionElement = elements.description;
     registerEvents();
   }
 
   function registerEvents() {
     videoPlayerElement.addEventListener('loadedmetadata', handleLoadedMetadata);
     videoPlayerElement.addEventListener('timeupdate', handleTimeUpdate);
+    videoPlayerElement.addEventListener('play', startSubtitleUpdate);
+    videoPlayerElement.addEventListener('pause', stopSubtitleUpdate);
+    videoPlayerElement.addEventListener('ended', stopSubtitleUpdate);
+    videoPlayerElement.addEventListener('seeked', updateSubtitle);
+    document.addEventListener('subtitleupdate', resetSubtitle);
+    document.addEventListener('stylechange', (e) => {
+      const style = e.detail;
+      updateStyle(style);
+    });
   }
 
   function generateThumbnails() {
@@ -74,9 +94,85 @@ const videoPlayer = (() => {
       (videoPlayerElement.currentTime / videoPlayerElement.duration) * timelineElement.clientWidth;
     currentTimeBarElement.style.left = `${currentPosition}px`;
 
-    
-    if (videoPlayerElement.currentTime < getStartTime() || videoPlayerElement.currentTime > getEndTime()) {
+    if (
+      videoPlayerElement.currentTime < getStartTime() ||
+      videoPlayerElement.currentTime > getEndTime()
+    ) {
       videoPlayerElement.currentTime = getStartTime();
+    }
+  }
+
+  function binarySearch(data, currentTime) {
+    let left = 0;
+    let right = data.length - 1;
+
+    while (left <= right) {
+      const mid = Math.floor((left + right) / 2);
+      const item = data[mid];
+
+      if (currentTime >= item.start_time && currentTime <= item.end_time) {
+        return item;
+      } else if (currentTime < item.start_time) {
+        right = mid - 1;
+      } else {
+        left = mid + 1;
+      }
+    }
+
+    return null;
+  }
+
+  function updateStyle(style) {
+    soundWordElement.style.webkitTextStroke = style.text_stroke;
+    soundWordElement.style.fontFamily = style.font_family;
+    soundWordElement.style.fontWeight = style.font_weight;
+    soundWordElement.style.fontSize = style.font_size;
+    soundWordElement.style.color = style.font_color;
+    soundWordElement.style.letterSpacing = style.letter_spacing;
+    soundWordElement.style.textShadow = style.text_shadow;
+  }
+
+
+  function resetSubtitle() {
+    const currentTime = videoPlayerElement.currentTime;
+ 
+    const data = getData();
+    const subtitle = binarySearch(data, currentTime);
+    if (subtitle) {
+      currentSubtitle = subtitle;
+      soundWordElement.textContent = subtitle.sound_word;
+      descriptionElement.textContent = `(${subtitle.description})`;
+      updateStyle(subtitle);
+      subtitleElement.style.display = 'flex';
+    } else {
+      currentSubtitle = null;
+      subtitleElement.style.display = 'none';
+    }
+  }
+
+  function updateSubtitle() {
+    const currentTime = videoPlayerElement.currentTime;
+    
+    if (
+      currentSubtitle &&
+      currentTime >= currentSubtitle.start_time &&
+      currentTime <= currentSubtitle.end_time
+    ) {
+      return;
+    }
+    
+    resetSubtitle();
+  }
+
+  function startSubtitleUpdate() {
+    stopSubtitleUpdate();
+    subtitleInterval = setInterval(updateSubtitle, 100);
+  }
+
+  function stopSubtitleUpdate() {
+    if (subtitleInterval) {
+      clearInterval(subtitleInterval);
+      subtitleInterval = null;
     }
   }
 

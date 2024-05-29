@@ -19,7 +19,6 @@ const timeline = (() => {
   let rightInactiveAreaElement;
 
   function init() {
-    console.log("js/ui/timeline.js init startTime", startTime, " endTime", endTime);
     dragType = null;
     isDragging = false;
     activeAreaElement = elements.activeArea;

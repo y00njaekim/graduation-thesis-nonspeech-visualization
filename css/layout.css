@@ -11,15 +11,24 @@
 }
 
 .left-pane {
-  flex-basis: 70%;
-  width: 70%;
+  position: relative;
+  width: 55%;
+  margin: 30px;
+  background-color: #fff;
+  /* border-radius: 0.5rem; */
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
 }
 
 .right-pane {
-  flex-basis: 30%;
-  padding: 10px;
-  margin-left: 20px;
-  border-radius: 5px;
-  background: rgb(243 244 246);
-  box-sizing: border-box;
+  width: 30%;
+  margin: 30px;
+  background-color: #fff;
+  /* border-radius: 0.5rem; */
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
 }
